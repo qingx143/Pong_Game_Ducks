@@ -178,7 +178,7 @@ void setup() {
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
   imageMode(CENTER);
-  mode = SETTING;
+  mode = INTRO;
   main.setGain(volume);
   main.loop();
 }
