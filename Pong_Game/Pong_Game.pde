@@ -5,6 +5,7 @@ April 12, 2022
 Pong Game
 
 Please Note: Freeplay mode is for two players only - will not work for one player, thank you!
+Sorry for handing in this project so late...
 */
 
 import ddf.minim.*;
