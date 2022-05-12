@@ -49,7 +49,7 @@ PImage[] winDucksL = new PImage[7];
 Minim minim;
 AudioPlayer main;
 AudioPlayer[] soundEffects = new AudioPlayer[3];
-float volume = -10;
+float volume = 0;
 float volume2 = 0;
 
 //paddles & ball -----------------------------------------------------------------------
