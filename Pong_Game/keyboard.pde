@@ -1,5 +1,4 @@
 void keyPressed() {
-  if (mode == GAME) {
     if (key == 'w' || key == 'W')
       wkey = true;
     if (key == 's' || key == 'S')
@@ -17,11 +16,10 @@ void keyPressed() {
       leftkey = true;
     if (keyCode == RIGHT)
       rightkey = true;
-  }
 }
 
 void keyReleased() {
-  if (mode == GAME) {
+  
     if (key == 'w' || key == 'W')
       wkey = false;
     if (key == 's' || key == 'S')
@@ -39,5 +37,5 @@ void keyReleased() {
       leftkey = false;
     if (keyCode == RIGHT)
       rightkey = false;
-  }
+  
 }

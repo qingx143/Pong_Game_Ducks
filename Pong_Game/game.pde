@@ -23,8 +23,10 @@ void gameBase() {
   circle(rightx, righty, paddled);
   
   //ball
-  fill(200);
+  fill(ballColour);
   circle(ballx, bally, balld);
+  if (selectedBall == 2)
+    image(ballDuck, ballx, bally, balld, balld);
   
   //base
   noStroke();
@@ -97,11 +99,15 @@ void theActualGame() {
     
   //left
   if (dist(leftx, lefty, ballx, bally) <= paddled/2 + balld/2) {
+    soundEffects[2].rewind();
+    soundEffects[2].play();
     ballvx = (ballx - leftx) / 10;
     ballvy = (bally - lefty) / 10;
   }
   //right
   if (dist(rightx, righty, ballx, bally) <= paddled/2 + balld/2) {
+    soundEffects[2].rewind();
+    soundEffects[2].play();
     ballvx = (ballx - rightx) / 15;
     ballvy = (bally - righty) / 15;
   }
@@ -114,8 +120,8 @@ void theActualGame() {
     scoreRight++;
     ballx = 350;
     bally = 200;
-    righty = 350; rightx = 700;
-    lefty = 350; leftx = 0;
+    righty = 200; rightx = 700;
+    lefty = 200; leftx = 0;
   }
   if (ballx >= 700) {
     timer = 100;
@@ -160,6 +166,9 @@ void gameText() {
 
 //clicks -------------------------------------------------------------------------------
 void gameClicks() {
-  if (mouseX >= 212.5 && mouseX <= 397.5 && mouseY >= 17.5 && mouseY <= 62.5)
+  if (mouseX >= 212.5 && mouseX <= 397.5 && mouseY >= 17.5 && mouseY <= 62.5) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = PAUSE;
+  }
 }

@@ -4,44 +4,7 @@ Zi Qing Xiong
 April 12, 2022
 Pong Game
 
-Planning:
-- Ducks in Space?
-- Mikrokosmos...?
-
-To Do:
-- intro
-  - play button
-  - modes button
-  - selection button
-  - settings button
-- settings
-  - music volume
-  - sound effects volume
-- selection
-  - changes size of target
-  - changes target
-  - changes colour of paddle
-- modes
-  - don't touch the target?
-  - hit the target with something else?
-  - check out different possible modes
-- game
-  - 
-- pause
-  - animation?
-- gameover
-  - winner
-  - animation?
-
-Other:
-  - draw background photo
-  - find target photos 
-  - decide on theme
-  - find music for game (LoZ, Mario?)
-  
-Problems:
-  - Player Two Left Button - Selection
-  - Freeplay - Two Player Mode Malfuctions
+Please Note: Freeplay mode is for two players only - will not work for one player, thank you!
 */
 
 import ddf.minim.*;
@@ -67,17 +30,26 @@ color transparent1 = color(255, 255, 255, 150);
 color transparent2 = color(255, 255, 255, 200);
 int[] player1Colours = new int[7];
 int[] player2Colours = new int[7];
-int[] ballDesign = new int[3];
 color paddleColour1;
 color paddleColour2;
 color ballColour = 200;
 
 //animations and photos ----------------------------------------------------------------
 PImage introDuck1, introDuck2, introDuck3, introDuck4;
+PImage pauseDuck;
+PImage ballDuck;
+PImage easyMode, normalMode, hardMode;
+PImage noSound, maxSound;
+PImage[] loseDucks = new PImage[7];
+PImage[] winDucksR = new PImage[7];
+PImage[] winDucksL = new PImage[7];
 
 //music --------------------------------------------------------------------------------
 Minim minim;
 AudioPlayer main;
+AudioPlayer[] soundEffects = new AudioPlayer[3];
+float volume = -10;
+float volume2 = 0;
 
 //paddles & ball -----------------------------------------------------------------------
 float leftx = 0;
@@ -107,25 +79,32 @@ boolean rightkey = false;
 
 //other --------------------------------------------------------------------------------
 int count = 0;
+int count2 = 0;
 int timer = 100;
 int[] buttons = new int[3];
 int scoreLeft = 0;
 int scoreRight = 0;
 int players = 1;
-int winner = 0;
+int winner = 1;
 float ballSpin = 0;
 float a = 1;
 boolean freeplay = false;
 int selectedPaddleLeft = 0;
-int selectedPaddleRight = 0;
-int selectedBall = 0;
+int selectedPaddleRight = 5;
+int selectedBall = 1;
 boolean AI = true;
+float sliderX1 = 372.5;
+float sliderX2 = 372.5;
 
 void setup() {
   size(700, 400); //halfway mark = (350, 200)
   
   //sound
   minim = new Minim(this);
+  main = minim.loadFile("lozmain.mp3");
+  soundEffects[0] = minim.loadFile("selection.mp3");
+  soundEffects[1] = minim.loadFile("choices.mp3");
+  soundEffects[2] = minim.loadFile("bump.mp3");
   
   //buttons
   for (int i = 0; i < buttons.length; i++) {
@@ -138,6 +117,41 @@ void setup() {
   introDuck2 = loadImage("IntroDuck2.PNG");
   introDuck3 = loadImage("IntroDuck3.PNG");
   introDuck4 = loadImage("IntroDuck4.PNG");
+  
+  pauseDuck = loadImage("PauseDuck.PNG");
+  
+  ballDuck = loadImage("BallDuck.PNG");
+  
+  easyMode = loadImage("EasyMode.PNG");
+  normalMode = loadImage("NormalMode.PNG");
+  hardMode = loadImage("HardMode.PNG");
+  
+  noSound = loadImage("NoSound.PNG");
+  maxSound = loadImage("MaxSound.PNG");
+  
+  loseDucks[0] = loadImage("LoseDuck1.PNG");
+  loseDucks[1] = loadImage("LoseDuck2.PNG");
+  loseDucks[2] = loadImage("LoseDuck3.PNG");
+  loseDucks[3] = loadImage("LoseDuck4.PNG");
+  loseDucks[4] = loadImage("LoseDuck5.PNG");
+  loseDucks[5] = loadImage("LoseDuck6.PNG");
+  loseDucks[6] = loadImage("LoseDuck7.PNG");
+  
+  winDucksR[0] = loadImage("WinDuck1R.PNG");
+  winDucksR[1] = loadImage("WinDuck2R.PNG");
+  winDucksR[2] = loadImage("WinDuck3R.PNG");
+  winDucksR[3] = loadImage("WinDuck4R.PNG");
+  winDucksR[4] = loadImage("WinDuck5R.PNG");
+  winDucksR[5] = loadImage("WinDuck6R.PNG");
+  winDucksR[6] = loadImage("WinDuck7R.PNG");
+  
+  winDucksL[0] = loadImage("WinDuck1L.PNG");
+  winDucksL[1] = loadImage("WinDuck2L.PNG");
+  winDucksL[2] = loadImage("WinDuck3L.PNG");
+  winDucksL[3] = loadImage("WinDuck4L.PNG");
+  winDucksL[4] = loadImage("WinDuck5L.PNG");
+  winDucksL[5] = loadImage("WinDuck6L.PNG");
+  winDucksL[6] = loadImage("WinDuck7L.PNG");
   
   //colours
   player1Colours[0] = #90B6FF;
@@ -163,7 +177,9 @@ void setup() {
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
   imageMode(CENTER);
-  mode = PAUSE;
+  mode = SETTING;
+  main.setGain(volume);
+  main.loop();
 }
 
 void draw() { 
@@ -201,5 +217,3 @@ void tactileRect2(int x, double y, int w, int h) {
     fill(#EDF2FA);
   }
 }
-
-//tactile circle buttons ---------------------------------------------------------------

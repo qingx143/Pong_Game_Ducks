@@ -7,10 +7,34 @@ void gameover() {
 
 //base ---------------------------------------------------------------------------------
 void gameoverBase() {
+  count2++;
   strokeWeight(3);
   stroke(0);
-  fill(transparent2);
+  noFill();
   rect(350, 65, 500, 75); // sign layer 2
+  //animations
+  if (winner == 1) {
+    
+    if (count2 < 50)
+      image(winDucksL[selectedPaddleLeft], 150, 200, 125, 125);
+    else 
+      image(winDucksR[selectedPaddleLeft], 150, 200, 125, 125);
+      //???
+    if (count2 == 100)
+      count2 = 0;
+    image(loseDucks[selectedPaddleRight], 550, 200, 125, 125);
+  }
+  
+  if (winner == 2) {
+    if (count2 < 50)
+      image(winDucksL[selectedPaddleRight], 550, 200, 125, 125);
+    else 
+      image(winDucksR[selectedPaddleRight], 550, 200, 125, 125);
+    if (count2 == 100) {
+      count2 = 0;
+    }
+    image(loseDucks[selectedPaddleLeft], 150, 200, 125, 125);
+  }
 }
 
 //buttons ------------------------------------------------------------------------------
@@ -47,6 +71,8 @@ void gameoverText() {
 //clicks -------------------------------------------------------------------------------
 void gameoverClicks() {
   if (mouseX >= 62.5 && mouseX <= 237.5 && mouseY >= 300 && mouseY <= 350) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = INTRO;
     scoreRight = 0;
     scoreLeft = 0;
@@ -58,6 +84,9 @@ void gameoverClicks() {
     bally = 200;
     timer = 100;
   }
-  if (mouseX >= 462.5 && mouseX <= 637.5 && mouseY >= 300 && mouseY <= 350) 
+  if (mouseX >= 462.5 && mouseX <= 637.5 && mouseY >= 300 && mouseY <= 350) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     exit();
+  }
 }

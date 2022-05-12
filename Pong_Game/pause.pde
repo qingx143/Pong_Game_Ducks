@@ -13,6 +13,7 @@ void pauseBase() {
   rect(350, 65, 500, 75); // sign layer 1
   fill(transparent2);
   rect(350, 65, 500, 75); // sign layer 2
+  image(pauseDuck, 350, 225, 200, 200);
 }
 
 //buttons ------------------------------------------------------------------------------
@@ -41,10 +42,15 @@ void pauseText() {
 
 //clicks -------------------------------------------------------------------------------
 void pauseClicks() {
-  if (mouseX >= 62.5 && mouseX <= 237.5 && mouseY >= 300 && mouseY <= 350) 
+  if (mouseX >= 62.5 && mouseX <= 237.5 && mouseY >= 300 && mouseY <= 350) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = GAME;
+  }
     
   if (mouseX >= 462.5 && mouseX <= 637.5 && mouseY >= 300 && mouseY <= 350) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = INTRO;
     scoreRight = 0;
     scoreLeft = 0;

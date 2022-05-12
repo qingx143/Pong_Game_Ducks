@@ -14,3 +14,8 @@ void mouseReleased() {
   else if (mode == GAMEOVER) 
     gameoverClicks();
 }
+
+void mouseDragged() {
+  if (mode == SETTING)
+    settingsClicksDrag();
+}

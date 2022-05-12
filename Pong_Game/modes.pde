@@ -15,26 +15,32 @@ void modesBase() {
   fill(transparent2);
   rect(350, 65, 500, 75); // sign layer 2
   fill(255);
+  
   if (buttons[0] == 1)
     stroke(#9DB2DB);
   else 
     stroke(0);
   tactileRect2(135, 250, 200, 250);
-  fill(255);
+  noFill();
+  image(easyMode, 135, 223, 210, 195);
   rect(135, 250, 200, 250); // easy
+  
   if (buttons[1] == 1)
     stroke(#9DB2DB);
   else
     stroke(0);
   tactileRect2(350, 250, 200, 250);
-  fill(255);
+  noFill();
+  image(normalMode, 350, 223, 210, 195);
   rect(350, 250, 200, 250); // normal
+  
   if (buttons[2] == 1)
     stroke(#9DB2DB);
   else 
     stroke(0);
   tactileRect2(565, 250, 200, 250);
-  fill(255);
+  noFill();
+  image(hardMode, 565, 223, 210, 195);
   rect(565, 250, 200, 250); // hard
   
   //difficulty signs
@@ -107,13 +113,25 @@ void buttonSwitch(int n) {
 //clicks -------------------------------------------------------------------------------
 void modesClicks() {
   //buttons
-  if (mouseX >= 35 && mouseX <= 235 && mouseY >= 125 && mouseY <= 375)
+  if (mouseX >= 35 && mouseX <= 235 && mouseY >= 125 && mouseY <= 375) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     buttonSwitch(0);
-  if (mouseX >= 250 && mouseX <= 450 && mouseY >= 125 && mouseY <= 375)
+  }
+  if (mouseX >= 250 && mouseX <= 450 && mouseY >= 125 && mouseY <= 375) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     buttonSwitch(1);
-  if (mouseX >= 465 && mouseX <= 665 && mouseY >= 125 && mouseY <= 375)
+  }
+  if (mouseX >= 465 && mouseX <= 665 && mouseY >= 125 && mouseY <= 375) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     buttonSwitch(2);
+  }
   
-  if (mouseX >= 25 && mouseX <= 75 && mouseY >= 40 && mouseY <= 90)
+  if (mouseX >= 25 && mouseX <= 75 && mouseY >= 40 && mouseY <= 90) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = INTRO;
+  }
 }

@@ -7,6 +7,11 @@ void setting() {
 
 //base ---------------------------------------------------------------------------------
 void settingBase() {
+  main.setGain(volume);
+  for (int j = 0; j < soundEffects.length; j++) {
+    soundEffects[j].setGain(volume2);
+  }
+  
   strokeWeight(3);
   stroke(0);
   fill(transparent1);
@@ -26,8 +31,19 @@ void settingBase() {
   
   strokeWeight(3);
   stroke(buttonColour);
-  line(180, 155, 580, 155);
-  line(180, 250, 580, 250);
+  line(175, 155, 570, 155);
+  line(175, 250, 570, 250);
+  volume = map(sliderX1, 175, 570, -35, 35);
+  volume2 = map(sliderX2, 175, 570, -35, 35);
+  
+  fill(255);
+  stroke(0);
+  tactileSlider(sliderX1, 140, 170);
+  circle(sliderX1, 155, 30);
+  fill(255);
+  stroke(0);
+  tactileSlider(sliderX2, 235, 265);
+  circle(sliderX2, 250, 30);
   
   strokeWeight(5);
   stroke(buttonColour);
@@ -71,6 +87,19 @@ void settingBase() {
     fill(transparent2);
   tactileRect2(350, 350, 175, 50);
   rect(350, 350, 175, 50);
+  
+  image(noSound, 150, 155, 20, 20);
+  image(maxSound, 610, 155, 30, 30);
+  image(noSound, 150, 250, 20, 20);
+  image(maxSound, 610, 250, 30, 30);
+}
+
+void tactileSlider(float sliderX, int top, int bottom) {
+  if (mouseX >= sliderX - 15 && mouseX <= sliderX + 15 && mouseY >= top && mouseY <= bottom) {
+    strokeWeight(3);
+    stroke(buttonColour);
+    fill(buttonFilled);
+  }
 }
 
 //buttons ------------------------------------------------------------------------------
@@ -81,6 +110,20 @@ void settingButtons() {
   fill(transparent2);
   tactileRect2(50, 65, 50, 50);
   square(50, 65, 50);
+  
+  //mute sound buttons
+  fill(transparent2);
+  noStroke();
+  tactileRect(600, 195, 15, 15);
+  if (main.isMuted())
+    fill(buttonColour);
+  square(600, 195, 15);
+  fill(transparent2);
+  noStroke();
+  tactileRect(600, 290, 15, 15);
+  if (soundEffects[0].isMuted())
+    fill(buttonColour);
+  square(600, 290, 15);
 }
 
 //text ---------------------------------------------------------------------------------
@@ -124,20 +167,81 @@ void settingText() {
 
 //clicks -------------------------------------------------------------------------------
 void settingsClicks() {
-  if (mouseX >= 25 && mouseX <= 75 && mouseY >= 40 && mouseY <= 90)
+  //sliders
+  if (mouseX >= 175 && mouseX <= 570 && mouseY >= 140 && mouseY <= 170) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
+    sliderX1 = mouseX;
+  }
+  if (mouseX >= 175 && mouseX <= 570 && mouseY >= 235 && mouseY <= 265) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
+    sliderX2 = mouseX;
+  }
+  
+  //mute
+  if (mouseX >= 592.5 && mouseX <= 607.5 && mouseY >= 178.5 && mouseY <= 202.5) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
+    if (main.isMuted()) 
+      main.unmute();
+    else
+      main.mute();
+  }
+  if (mouseX >= 592.5 && mouseX <= 607.5 && mouseY >= 282.5 && mouseY <= 297.5) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
+    if (soundEffects[0].isMuted()) {
+      for (int j = 0; j < soundEffects.length; j++) {
+        soundEffects[j].unmute();
+      }
+    }
+    else {
+      for (int j = 0; j < soundEffects.length; j++) {
+        soundEffects[j].mute();
+      }
+    }
+  }
+  
+  //others
+  if (mouseX >= 25 && mouseX <= 75 && mouseY >= 40 && mouseY <= 90) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = INTRO;
+  }
     
   if (mouseX >= 37.5 && mouseX <= 212.5 && mouseY >= 325 && mouseY <= 375) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     players = 1;
     AI = true;
   }
   if (mouseX >= 487.5 && mouseX <= 662.5 && mouseY >= 325 && mouseY <= 375) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     players = 2;
     AI = false;
   }
     
-  if (mouseX >= 262.5 && mouseX <= 437.5 && mouseY >= 325 && mouseY <= 375 && players == 2) 
+  if (mouseX >= 262.5 && mouseX <= 437.5 && mouseY >= 325 && mouseY <= 375 && players == 2) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     freeplay = true;
-  else if (mouseX >= 262.5 && mouseX <= 437.5 && mouseY >= 325 && mouseY <= 375 || players == 1)
+  }
+  else if (mouseX >= 262.5 && mouseX <= 437.5 && mouseY >= 325 && mouseY <= 375 || players == 1) {
+    if (mouseX >= 262.5 && mouseX <= 437.5 && mouseY >= 325 && mouseY <= 375) {
+      soundEffects[0].rewind();
+      soundEffects[0].play();
+    }
     freeplay = false;
+  }
+}
+
+void settingsClicksDrag() {
+  if (mouseX >= 175 && mouseX <= 570 && mouseY >= 140 && mouseY <= 170) {
+    sliderX1 = mouseX;
+  }
+  if (mouseX >= 175 && mouseX <= 570 && mouseY >= 235 && mouseY <= 265) {
+    sliderX2 = mouseX;
+  }
 }

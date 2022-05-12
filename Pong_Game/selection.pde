@@ -23,17 +23,22 @@ void selectionBase() {
   circle(212.5, 100, 75); // left
   fill(paddleColour2);
   circle(487.5, 100, 75); // right
+  
   fill(ballColour);
   circle(350, 100, 40); // ball
+  if (selectedBall == 2)
+    image(ballDuck, 350, 100, 40, 40);
   
   //selection
   fill(paddleColour1);
   circle(125, 240, 125); // left
   fill(paddleColour2);
   circle(575, 240, 125); // right
+  
   fill(ballColour);
   circle(350, 285, 100); // ball
-  
+  if (selectedBall == 2) 
+    image(ballDuck, 350, 285, 100, 100);
   strokeWeight(1);
   fill(#707B8E);
   
@@ -78,6 +83,18 @@ void selectionBase() {
   
   circleSelection2(6);
   circle(605, 312, 7);
+  
+  if (selectedBall == 1) 
+    stroke(255);
+  else
+    stroke(0);
+  circle(345, 345, 7);
+  
+  if (selectedBall == 2) 
+    stroke(255);
+  else
+    stroke(0);
+  circle(355, 345, 7);
 }
 
 //circle selection stuff ---------------------------------------------------------------
@@ -176,11 +193,16 @@ void coverups() {
 
 //clicks -------------------------------------------------------------------------------
 void selectionClicks() {
-  if (mouseX >= 25 && mouseX <= 75 && mouseY >= 40 && mouseY <= 90)
+  if (mouseX >= 25 && mouseX <= 75 && mouseY >= 40 && mouseY <= 90) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = INTRO;
+  }
     
   //arrow buttons left to right
   if (mouseX >= 27.5 && mouseX <= 52.5 && mouseY >= 215 && mouseY <= 265) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     if (player1Colours[0] != paddleColour1) {
       paddleColour1 = player1Colours[selectedPaddleLeft - 1];
       selectedPaddleLeft--;
@@ -190,6 +212,8 @@ void selectionClicks() {
   }
     
   if (mouseX >= 197.5 && mouseX <= 222.5 && mouseY >= 215 && mouseY <= 265) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     if (player1Colours[6] != paddleColour1) {
       paddleColour1 = player1Colours[selectedPaddleLeft + 1];
       selectedPaddleLeft++;
@@ -199,12 +223,20 @@ void selectionClicks() {
   }
   
   if (mouseX >= 267.5 && mouseX <= 292.5 && mouseY >= 255 && mouseY <= 310) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
+    selectedBall = 1;
   }
   
   if (mouseX >= 407.5 && mouseX <= 432.5 && mouseY >= 255 && mouseY <= 310) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
+    selectedBall = 2;
   }
   
   if (mouseX >= 477.5 && mouseX <= 502.5 && mouseY >= 215 && mouseY <= 265) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     if (player2Colours[0] != paddleColour2) {
       paddleColour2 = player2Colours[selectedPaddleRight - 1];
       selectedPaddleRight--;
@@ -214,6 +246,8 @@ void selectionClicks() {
   }
   
   if (mouseX >= 647.5 && mouseX <= 672.5 && mouseY >= 215 && mouseY <= 265) {
+    soundEffects[0].rewind();
+    soundEffects[0].play();
     if (player2Colours[6] != paddleColour2) {
       paddleColour2 = player2Colours[selectedPaddleRight + 1];
       selectedPaddleRight++;

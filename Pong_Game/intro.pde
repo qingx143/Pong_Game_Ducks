@@ -86,12 +86,24 @@ void introAnimations() {
 
 //clicks -------------------------------------------------------------------------------
 void introClicks() {
-  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 185 && mouseY <= 220)
+  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 185 && mouseY <= 220) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = GAME;
-  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 230 && mouseY <= 265)
+  }
+  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 230 && mouseY <= 265) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = MODES;
-  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 275 && mouseY <= 310)
+  }
+  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 275 && mouseY <= 310) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = SELECTION;
-  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 320 && mouseY <= 355)
+  }
+  if (mouseX >= 225 && mouseX <= 475 && mouseY >= 320 && mouseY <= 355) {
+    soundEffects[1].rewind();
+    soundEffects[1].play();
     mode = SETTING;
+  }
 }
